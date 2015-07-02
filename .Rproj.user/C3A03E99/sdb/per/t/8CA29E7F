@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1431111739182.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "8CA29E7F",
+    "lastKnownWriteTime" : 29555362185347104,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "toss",
+        "contentUrl" : "content?title=toss&file=ca57db2001274ba78e6c31a9fccd9ea5.htm",
+        "displayedObservations" : 704,
+        "displayedVariables" : 5,
+        "totalObservations" : 704,
+        "variables" : 5
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

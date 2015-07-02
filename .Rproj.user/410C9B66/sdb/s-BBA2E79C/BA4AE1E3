@@ -1,0 +1,17 @@
+{
+    "contents" : "###  DevelopPrimaryPolygons.R\n# \n# First attempt at creating primary polygons from Tranche 1 data sets\n#\n#   1. Load preprocessed data from shapefile (or directly from R potentially)\n#   2. Look for intersecting polygons\n#   3. Create a crosswalk list for later use\n#   4. Create a best-guess polygon (based on hierarchy?)\n#   5. Write out to a constant format for later processing\n#\n\n# Parameters to change\n# The list of reprocessed Tranche1 datasets (in same path)\n# The earliest listed dataset takes precedent over subsequent data sets\ninputs <- list('2011_wildfire_MN', 'rxburns_2011_MN', 'GeoMacProcessed', 'GeoMacPretend')\n# The location of the input Tranche1 datasets\ninpath <- \"./InputData/Tranche1\"\n\n# Required packages\nlibrary(rgdal)\nlibrary(rgeos)\nlibrary(dplyr)\n\n# Load shapefiles to a list\ndatasets <- lapply(inputs, function(x) {readOGR(dsn=inpath, layer=x)})\n\n# Look for intersecting polygons across all layers two at a time (Magic!)\ncombos <- combn(datasets, 2, function(x) gIntersects(x[[1]],x[[2]], byid=TRUE), simplify=FALSE)\nints <- lapply(combos, which, arr.ind=TRUE)\n\n# Now we have the full list of intersections, what do we do?\n# Throw out any polys that intersect with the first listed dataset,\n# then throw out remaining polys that intersect with the next listed dataset...\n\n# the column is always the primary dataset and the row is secondary, so\n# we can toss each row ID with a matched column\n# With 4 datasets, the row is associated with datasets in this pattern\n# 2, 3, 4, 3, 4, 4\n\n# Here are the different combinations of i and j\nn <- length(ints)\nds <- length(datasets)\nx <- 1\ni <- 1\nj <- 2\npairs <- matrix(ncol=2, nrow=n)\nwhile (x <= n) {\n  pairs[x,1] <- i\n  pairs[x,2] <- j\n  j <- j+1\n  if (j > ds) {\n    i <- i+1\n    j <- i+1\n  }\n  x <- x+1\n}\n\n# Now walk through the list of intersections and build the list to discard\nn.intersects <- length(unlist(ints))/2\n# make a structure to store the list (dataset, dup.id)\ntoss <- setNames(data.frame(matrix(ncol = 2, nrow = n.intersects)),c(\"dataset\", \"dup.id\"))\n\ni <- 1\nfor (x in 1:n) {\n  toss$dataset[i] <- pairs[x,2]\n  dups <- ints[[x]][,2]\n  dup.polys <- length(dups)\n  for (y in 1:dup.polys) {\n    toss$dup.id[i] <- dups[[y]]\n    i <- i+1\n  }\n}\n\n# flatten the list\n\nmakeToss <- function(x) {\n  primary <- pairs[x,1] # not important\n  secondary <- pairs[x,2]\n  dups <- ints[[x]][,2]\n  \n}\n\n\n\n# Merge all remaining datasets into a constant format\n\n# Write to shapefile\n\n\n",
+    "created" : 1426520226816.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1442413967",
+    "id" : "BA4AE1E3",
+    "lastKnownWriteTime" : 1426524147,
+    "path" : "P:/ProjectData/913029_JFSP_Rx_Emissions/SF_Algorithms/Code/DevelopPrimaryPolygons.R",
+    "project_path" : "Code/DevelopPrimaryPolygons.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

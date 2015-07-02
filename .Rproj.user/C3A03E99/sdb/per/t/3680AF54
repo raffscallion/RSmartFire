@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1431110345033.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3680AF54",
+    "lastKnownWriteTime" : 29555362180890625,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "candidates",
+        "contentUrl" : "content?title=candidates&file=594b928183624f6b940af06dacee64fc.htm",
+        "displayedObservations" : "718",
+        "displayedVariables" : 5,
+        "totalObservations" : "718",
+        "variables" : "5"
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
