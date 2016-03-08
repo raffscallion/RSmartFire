@@ -8,6 +8,7 @@
 # Required packages
 library(rgdal)
 library(rgeos)
+library(dplyr)
 
 # Load shapefile
 input.name <- 'MN_RX'  # A friendly name for metadata and the output name
